@@ -65,6 +65,7 @@ void set_volume(const char *volume) {
 }
 
 int main() {
+    EnableEventWaiting();
     InitWindow(WIDTH, HEIGHT, "Volume Slider");
     SetWindowPosition(SCREENX, SCREENY);
 
@@ -77,11 +78,11 @@ int main() {
     bool snapping = false;
     bool shouldRecheckSysVolume = true;
 
-    SetTargetFPS(60);
+    SetTargetFPS(10);
     while (!WindowShouldClose()) {
         // Re-check sys volume every other second to ensure we're in sync
         // TODO: better method so I'm not checking GetTime AND setting a recheck var
-        if ((int)GetTime() % 2 == 0) {
+        if ((int)GetTime() % 10 == 0) {
             if (shouldRecheckSysVolume) {
                 float new_volume = read_volume();
                 if ((int)volume != (int)new_volume) {
